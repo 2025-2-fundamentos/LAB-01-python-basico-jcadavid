@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import csv
 
 def pregunta_11():
     """
@@ -14,5 +15,14 @@ def pregunta_11():
     Rta/
     {'a': 122, 'b': 49, 'c': 91, 'd': 73, 'e': 86, 'f': 134, 'g': 35}
 
-
     """
+    sums = {}
+    with open("files/input/data.csv", newline='', encoding='utf-8') as f:
+        reader = csv.reader(f, delimiter='\t')
+        for row in reader:
+            val = int(row[1])
+            col4_letters = row[3].split(',')
+            for letter in col4_letters:
+                sums[letter] = sums.get(letter, 0) + val
+                
+    return dict(sorted(sums.items()))

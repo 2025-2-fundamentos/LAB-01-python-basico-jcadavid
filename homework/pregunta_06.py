@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import csv
 
 def pregunta_06():
     """
@@ -26,3 +27,22 @@ def pregunta_06():
      ('jjj', 5, 17)]
 
     """
+    data = {}
+    with open("files/input/data.csv", newline='', encoding='utf-8') as f:
+        reader = csv.reader(f, delimiter='\t')
+        for row in reader:
+            encoded_dict = row[4]
+            pairs = encoded_dict.split(',')
+            for pair in pairs:
+                k, v = pair.split(':')
+                v = int(v)
+                if k not in data:
+                    data[k] = []
+                data[k].append(v)
+                
+    result = []
+    for k in sorted(data.keys()):
+        vals = data[k]
+        result.append((k, min(vals), max(vals)))
+        
+    return result

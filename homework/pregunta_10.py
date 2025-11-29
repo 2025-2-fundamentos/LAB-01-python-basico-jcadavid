@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import csv
 
 def pregunta_10():
     """
@@ -18,5 +19,14 @@ def pregunta_10():
      ('E', 2, 3),
      ('E', 3, 3)]
 
-
     """
+    result = []
+    with open("files/input/data.csv", newline='', encoding='utf-8') as f:
+        reader = csv.reader(f, delimiter='\t')
+        for row in reader:
+            letter = row[0]
+            col4_count = len(row[3].split(','))
+            col5_count = len(row[4].split(','))
+            result.append((letter, col4_count, col5_count))
+            
+    return result
